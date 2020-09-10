@@ -21,38 +21,22 @@ const convToJson = res => {
 // and render it onto a dom container
 
 const renderFilm = (films) => {
-    console.log(films[0])
+    const moviePoster = document.getElementById('poster')
+    moviePoster.src = films[0].poster
+
+    const movieId = document.getElementById('title')
+    movieId.innerText = films[0].title
+
+    const movieRuntime = document.getElementById('runtime')
+    movieRuntime.innerText = films[0].runtime
+
+    const movieDesc = document.getElementById('film-info')
+
+    const movieShowtime = document.getElementById('showtime')
+
+    const movieTicketNum = document.getElementById('ticket-num')
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
