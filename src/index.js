@@ -4,13 +4,14 @@ const url = "http://localhost:3000/films"
 document.addEventListener("DOMContentLoaded", e => {
 getFilms()
 clickHandler()
+
 })
 
 // fethc request for the movies //
 const getFilms = () => {
     fetch(url)
     .then(convToJson)
-    .then(renderFilm)
+    .then(getFilm)
 }
 
 // parsing the film into jason but seperating the functions//
@@ -20,9 +21,13 @@ const convToJson = res => {
 
 // the function that will grab the first movie//
 // and render it onto a dom container
+const getFilm = (films) =>{
+    films.forEach(film => {
+        renderFilm(film)
+    })
+}
 
-const renderFilm = (films) => {
-    console.log(films[0])
+const renderFilm = (film) => {
     const moviePoster = document.getElementById('poster')
     const movieId = document.getElementById('title')
     const movieRuntime = document.getElementById('runtime')
@@ -30,19 +35,23 @@ const renderFilm = (films) => {
     const movieShowtime = document.getElementById('showtime')
     const movieTicketNum = document.getElementById('ticket-num')
     
-    movieId.innerText = films[0].title
-    moviePoster.src = films[0].poster
-    movieRuntime.innerText = films[0].runtime
-    movieDesc.innerText = films[0].description
-    movieShowtime.innerText = films[0].showtime    
-    movieTicketNum.innerHTML = films[0].capacity - films[0].tickets_sold
+    movieId.innerText = film.title
+    moviePoster.src = film.poster
+    movieRuntime.innerText = film.runtime 
+    movieDesc.innerText = film.description
+    movieShowtime.innerText = film.showtime    
+    movieTicketNum.innerHTML = film.capacity - film.tickets_sold
     }
 
     const clickHandler = () => {
         document.addEventListener('click', e => {
         // console.dir(e.target)
             if (e.target.className === "ui orange button"){
-                console.log(films[0])
+                getFilms()              
+            const remTickets = document.getElementById('ticket-num')
+
+
+
 
             }
         })
