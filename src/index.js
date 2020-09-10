@@ -31,18 +31,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderFilmInfo(filmObj){
         const showCard = qs(".card")
-        let filmPoster = qs(".four-wide-column")
-        
+        let filmPoster = qs("#poster")
         let filmCard = qs("#title")
         let filmRun = qs("#runtime")
-        filmPoster.innerHTML = `
-        <img id="poster" src="${filmObj.poster}">
-        `
+        let filmInfo = qs("#film-info")
+        let filmShowtime = qs("#showtime")
+        let filmTicketNum = qs("#ticket-num")
+        let filmCount = qs(".ui.orange.button")
+        // filmPoster.innerHTML = `
+        // <img id="poster" src="${filmObj.poster}">
+        // `
+        filmPoster.src= filmObj.poster
         filmCard.innerText = filmObj.title
         filmRun.innerText = filmObj.runtime
-        
+        filmInfo.innerText = filmObj.description
+        filmShowtime.innerText = filmObj.showtime
+        filmTicketNum.innerText = filmObj.capacity
+        filmCount.dataset.num = filmObj.id
+        filmTicketNum.dataset.num = filmObj.id
         // showCard.append(filmCard)
     }
+
+// buy ticket counter 
+// subtract from total
+// user click event listener
+
+    document.addEventListener("click", (e) => {
+    if (e.target.matches(".ui.orange.button"))
+        console.log(e.target)
+        const button = e.target
+        // get data id from button
+        let filmLikes = parseInt(e.target.getAttribute())
+    })
 
     function renderFilm(filmObj){
         // create element here
