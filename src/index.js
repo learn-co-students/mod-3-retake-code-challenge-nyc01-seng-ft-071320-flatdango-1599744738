@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function(e){
 //### variables #########
 const url = "http://localhost:3000/films/"
 let buyTix= document.querySelector('#buy-ticket-btn')
-
 // ######################
 
 //#### click listener 
@@ -62,8 +61,6 @@ function lowerTicketDOM(btn){
         let id = card.dataset.id 
         let sold = parseInt(card.dataset.sold, 10)
         let update = (sold + 1)
-
-        // let data = {tickets_sold: update}
  
         let options = {
             method: 'PATCH',
