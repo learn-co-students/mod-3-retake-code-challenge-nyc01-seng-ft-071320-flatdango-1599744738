@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const renderMovie = (movie) => {
         const movieCard = document.querySelector('.card')
+        movieCard.dataset.id = movie.id
+        console.log(movieCard)
         const movieCapacity = parseInt(movie.capacity)
         const movieTicketsSold = movie.tickets_sold
         const availableTickets = movieCapacity - movieTicketsSold
@@ -33,17 +35,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="description">
                     <div id="film-info">${movie.description}</div>
                     <span id="showtime" class="ui label">${movie.showtime}</span>
-                    <span id="ticket-num">[X]</span> ${availableTickets} remaining tickets
+                    <span id="ticket-num">${availableTickets}</span> remaining tickets
                 </div>
             </div>
             <div class="extra content">
-              <div class="ui orange button">Buy Ticket</div>
+              <div class="ui orange button" id="orange" >Buy Ticket</div>
         `
     }
 
+    const clickHandler = () => {
+        document.addEventListener('click', e => {
+            if(e.target.matches('.orange')){
+              const ticketNum = document.querySelector('#ticket-num').textContent
+              
+              const remainingTickets = parseInt(ticketNum) - 1
+            
+            const options = {
+                method: 'PATCH',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'accept': 'application/json'
+                },
+                body: JSON.stringify({availableTickets: remainingTickets})
+                }
+            }
+        })
+    }
 
 
-
+    clickHandler()
     getMovies()
 })
 
