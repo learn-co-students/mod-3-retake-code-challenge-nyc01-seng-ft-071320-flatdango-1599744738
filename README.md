@@ -20,7 +20,7 @@ The endpoints you will need are:
 
 - GET `/films/[:id]` (start with `/films/1`)
 - PATCH `/films/[:id]`
-- GET `/films` (for Advanced Deliverables only)
+
 
 ## Core Deliverables
 
