@@ -1,21 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const baseUrl = "http://localhost:3000/films"
-
+    const baseUrl = "http://localhost:3000/films/"
 
     const getMovies = () => {
         fetch(baseUrl)
         .then(response => response.json())
-        .then(movie => renderMovie(movie))
+        .then(movies => renderMovies(movies))
     }
 
+    const renderMovies = movies => {
+        for(const movie of movies){
+            renderMovie(movie)
+        }
+    }
+    
     const renderMovie = (movie) => {
+        const movieCard = document.querySelector('.card')
+        const movieCapacity = parseInt(movie.capacity)
+        const movieTicketsSold = movie.tickets_sold
+        const availableTickets = movieCapacity - movieTicketsSold
 
-        document.querySelector('#poster').src =`${movie.poster}`
-        document.querySelector('#title').textContent = `${movie.title}`
-        document.querySelector('#runtime').textContent = `${movie.runtime}`
-        document.querySelector('#film-info').textContent = `${movie.description}`
-        document.querySelector('#showtime').textContent = `${}`
+        document.querySelector('#poster').src = `${movie.poster}`
+
+
+        movieCard.innerHTML = `
+        <div class="four wide column">
+        <div class="ui cards" id="showing">
+
+          <div class="card">
+            <div id="title" class="title">${movie.title}</div>
+            <div id="runtime" class="meta">${movie.runtime} minutes</div>
+            <div class="content">
+                <div class="description">
+                    <div id="film-info">${movie.description}</div>
+                    <span id="showtime" class="ui label">${movie.showtime}</span>
+                    <span id="ticket-num">[X]</span> ${availableTickets} remaining tickets
+                </div>
+            </div>
+            <div class="extra content">
+              <div class="ui orange button">Buy Ticket</div>
+        `
     }
+
+
 
 
     getMovies()
@@ -45,3 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // - Change buy ticket button to sold out button
     // - Disable button functionality 
+
+
+
+            // document.querySelector('#poster').src =`${movie.poster}`
+        // document.querySelector('#title').textContent = `${movie.title}`
+        // document.querySelector('#runtime').textContent = `${movie.runtime}`
+        // document.querySelector('#film-info').textContent = `${movie.description}`
+        // document.querySelector('#showtime').textContent = `${movie.showtime}`
+
+        
+        // document.querySelector('#ticket-num').textContent = availableTickets
