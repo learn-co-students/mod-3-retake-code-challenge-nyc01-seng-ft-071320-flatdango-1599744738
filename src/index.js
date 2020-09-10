@@ -26,19 +26,24 @@ function renderMovie(movie){
     movieTitle.innerText = movie.title
     runTime.innerText = `${movie.runtime} minutes`
     showTime.innerText = `${movie.showtime}`
-    ticketsLeft.innerText = parseInt(`${capacity}` - `${movie.tickets_sold}`)
+    ticketAmount = buyTix(movie)
 }
 
 // get tickets to do math with theatre capacity and tix sold
-function buyTix(){
+function buyTix(movie){
+    let tickets = ticketsLeft.innerText = parseInt(`${capacity}` - `${movie.tickets_sold}`)
+    tickets
     buyButton.addEventListener('click', e => {
-        console.log(e)
+      let remainingTix = ticketsLeft.innerText = tickets--
     })
+
+    fetch()
+   
 }
 
 
 getMovie(url + 1)
-buyTix()
+
 
 
 
