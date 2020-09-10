@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", function(e){
     loadFrontMovie()
+    indexLoad()
 }) 
 
 //### variables #########
 const url = "http://localhost:3000/films/"
 let buyTix= document.querySelector('#buy-ticket-btn')
+// let sideBar= document.querySelector('.film item')
 // ######################
 
 //#### click listener 
@@ -13,6 +15,9 @@ document.addEventListener('click', function(e){
     console.log(e.target)
      if(e.target.matches('#buy-ticket-btn')){     console.log('buy ticket clicked')
      lowerTicketDOM(e.target)
+    } else if(e.target.class='side-name'){
+        console.log('side name clicked')
+        renderNewMovie(e.target.dataset.id)
     }
 })// end of click listener 
 
@@ -26,6 +31,18 @@ function loadFrontMovie(){
         console.log(data)
         renderFrontMovie(data)
     })
+}
+
+function renderNewMovie(id){
+    fetch(url + id)
+    .then(function(response){
+        return response.json()
+    })
+    .then(function(data){
+        console.log(data)
+        renderFrontMovie(data)
+    })
+
 }
 
 //########change DOM for movie one
@@ -73,7 +90,7 @@ function lowerTicketDOM(btn){
 
         fetch(url+id, options)
             .then(function(response){
-                return response.json
+                return response.json()
             })
             .then(function(response){
                 console.log(response)
@@ -81,4 +98,31 @@ function lowerTicketDOM(btn){
             })   
     }
 
-    //###### EXTRA DELIVERABLES 
+    //###### EXTRA DELIVERABLES
+
+    function indexLoad(){
+        fetch('http://localhost:3000/films')
+            .then(function(response){
+                return response.json()
+            })
+            .then(function(data){
+            console.log(data)
+            parseData(data)
+        }) 
+    }
+
+    function parseData(object){
+        console.log(object[1].title)
+        object.forEach(renderSideBar)
+    }
+
+    function renderSideBar(movie){
+        console.log(movie.title)
+        let title = document.createElement('span')
+        title.dataset.id=movie.id
+        title.setAttribute('type', 'side-name')
+    
+        title.innerText=movie.title
+        let sideBar = document.querySelector('#films')
+        sideBar.append(title)
+    }
