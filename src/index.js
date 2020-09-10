@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", e => {
             // const button = e.target
             if (e.target.innerText === "Buy Ticket") { //add in the expression "&& if the remaining tickets are > 0"
                 let currentTickets = e.target.parentElement.previousElementSibling.childNodes[1].childNodes[5]
-                let movieId = currentTickets.dataset.id
+                let movieId = currentTickets.dataset.id //use for patch request
                 if (currentTickets.innerText > 0) {
                     currentTickets.innerText = currentTickets.innerText - 1
                     
@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", e => {
 
     //     filmList.appendChild(div)
     // }
+
 
 //invoke the functions
 getFirstMovie();
