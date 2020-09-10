@@ -3,6 +3,7 @@ const url = "http://localhost:3000/films"
 // adding the dom content loaded//
 document.addEventListener("DOMContentLoaded", e => {
 getFilms()
+clickHandler()
 })
 
 // fethc request for the movies //
@@ -21,23 +22,31 @@ const convToJson = res => {
 // and render it onto a dom container
 
 const renderFilm = (films) => {
+    console.log(films[0])
     const moviePoster = document.getElementById('poster')
-    moviePoster.src = films[0].poster
-
     const movieId = document.getElementById('title')
-    movieId.innerText = films[0].title
-
     const movieRuntime = document.getElementById('runtime')
-    movieRuntime.innerText = films[0].runtime
-
     const movieDesc = document.getElementById('film-info')
-
     const movieShowtime = document.getElementById('showtime')
-
     const movieTicketNum = document.getElementById('ticket-num')
-
+    
+    movieId.innerText = films[0].title
+    moviePoster.src = films[0].poster
+    movieRuntime.innerText = films[0].runtime
+    movieDesc.innerText = films[0].description
+    movieShowtime.innerText = films[0].showtime    
+    movieTicketNum.innerHTML = films[0].capacity - films[0].tickets_sold
     }
 
+    const clickHandler = () => {
+        document.addEventListener('click', e => {
+        // console.dir(e.target)
+            if (e.target.className === "ui orange button"){
+                console.log(films[0])
+
+            }
+        })
+    }
 
 
 
