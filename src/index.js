@@ -23,8 +23,47 @@ document.addEventListener('DOMContentLoaded', (event) => {
         movieTickets.innerText = remainingTickets
         
     }
+
+    function clickListener(){
+        const button = document.querySelector("#button-container")
+        const targetButton = document.querySelector("#button-container").children[0]
+     button.addEventListener('click', (event) => {
+         if (event.target === targetButton) {
+           let ticketSold = 0
+            const ticketNum = parseInt(movieTickets.innerText)  
+            movieTickets.innerText = ticketNum - 1
+            ticketSold = ticketSold + 1
+
+            updateTickets(ticketSold)
+           
+       }
+     })
+    }
+
+    function updateTickets(ticketSold) {
+        options = {
+            methods: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Aceept" : "application/json"
+            },
+            body: JSON.stringify({
+                tickets_sold: ticketSold
+            })
+        }
+        
+        fetch(url + 1, options)
+        .then(response => response.json())
+        .then(ticketData => {
+            console.log(ticketData)
+        })
+    }
+
+    
+    
     
     getMovie();
+    clickListener();
 });
 
 
