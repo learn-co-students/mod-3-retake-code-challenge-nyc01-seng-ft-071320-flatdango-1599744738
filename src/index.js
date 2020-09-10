@@ -3,9 +3,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const getMovies = () => {
-        fetch()
+        fetch(baseUrl)
+        .then(response => response.json())
+        .then(movie => renderMovie(movie))
     }
 
+    const renderMovie = (movie) => {
+
+        document.querySelector('#poster').src =`${movie.poster}`
+        document.querySelector('#title').textContent = `${movie.title}`
+        document.querySelector('#runtime').textContent = `${movie.runtime}`
+        document.querySelector('#film-info').textContent = `${movie.description}`
+        document.querySelector('#showtime').textContent = `${}`
+    }
+
+
+    getMovies()
 })
 
 // The endpoints you will need are:
