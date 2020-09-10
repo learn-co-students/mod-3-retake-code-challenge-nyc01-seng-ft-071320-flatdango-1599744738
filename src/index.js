@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", e => {
         ticketNum.dataset.id = movie.id
         image.src = `${movie.poster}`
 
-        //create a tickets sold variable
+        //create variables for potential later use
         let ticketSold = `${movie.tickets_sold}`
         let capacity = `${movie.capacity}`
     }
@@ -52,7 +52,24 @@ document.addEventListener("DOMContentLoaded", e => {
                 if (currentTickets.innerText > 0) {
                     currentTickets.innerText = currentTickets.innerText - 1
                     
+                    // //create function to get necessary movie info
+                    // const getMovieInfo = (movieid) => {
+                    //     fetch(url + movieId)
+                    //     .then(resp => resp.json())
+                    //     .then( info => {
+                    //         tickets_sold = info.tickets_sold
+                    //         capacity = info.capacity
+                    //     })
+                    // }
                     
+                    
+                    
+                } else {
+                    return alert("No more tickets!")
+                }
+                
+                
+                // create options for the patch request
                 //     options = {
                 //     method: "PATCH",
                 //     headers: {
@@ -64,12 +81,6 @@ document.addEventListener("DOMContentLoaded", e => {
                 // fetch(url + 1, options)
                 // .then(resp => resp.json())
                 // .then()
-                } else {
-                    return alert("No more tickets!")
-                }
-                
-                
-                // create options for the patch request
                 
             } 
         })
