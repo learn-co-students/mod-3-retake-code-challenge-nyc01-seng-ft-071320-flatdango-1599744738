@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const firstUrl = "http://localhost:3000/films/1/"
     const ce = (tag) => document.createElement(tag);
     const qs = (selector) => document.querySelector(selector);
+    let sold = 0
+
 
     const getFilms = () => {
         fetch(baseUrl)
@@ -27,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
             renderFilmInfo(filmObj)
             renderFilm(filmObj)
         }
+        // films.sold
     }
 
     function renderFilmInfo(filmObj){
@@ -38,6 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
         let filmShowtime = qs("#showtime")
         let filmTicketNum = qs("#ticket-num")
         let filmCount = qs(".ui.orange.button")
+        // filmCount.style.display = "none"
+        // when tickets left is = 0
+
         // filmPoster.innerHTML = `
         // <img id="poster" src="${filmObj.poster}">
         // `
@@ -74,6 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             putFilm(dataId, dataObject)
+
+            
+
         })
     }
 
@@ -93,19 +102,21 @@ document.addEventListener("DOMContentLoaded", () => {
             const dataId = data.id
             const capacity = data.capacity
             const tickets = data.tickets_sold
-
+            const ticketsLeft = capacity - tickets
+            // if remaining tickets > 0 allow tickets to be sold
+            
             // query select the data id and associated ticket count/capacity
             let filmTickets = qs("#ticket-num")
 
             filmTickets.setAttribute("data-num", dataId)
             filmTickets.setAttribute("data-capacity", capacity)
             filmTickets.setAttribute("data-tickets", tickets)
-
+            
             // on page refresh, remaining tickets go down, capacity goes down
             filmTickets.textContent = capacity
+
+            
         })
-
-
     }
 
     function renderFilm(filmObj){
