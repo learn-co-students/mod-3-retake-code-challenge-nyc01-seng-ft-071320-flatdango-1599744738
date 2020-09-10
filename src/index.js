@@ -53,17 +53,17 @@ document.addEventListener("DOMContentLoaded", e => {
                     currentTickets.innerText = currentTickets.innerText - 1
                     
                     
-                    options = {
-                    method: "PATCH",
-                    headers: {
-                        "content-type": "application/json",
-                        "accept": "application/json"
-                    },
-                    body: JSON.stringify({"tickets_sold": currentTickets.innerText})
-                }
-                fetch(url + 1, options)
-                .then(resp => resp.json())
-                .then()
+                //     options = {
+                //     method: "PATCH",
+                //     headers: {
+                //         "content-type": "application/json",
+                //         "accept": "application/json"
+                //     },
+                //     body: JSON.stringify({"tickets_sold": currentTickets.innerText})
+                // }
+                // fetch(url + 1, options)
+                // .then(resp => resp.json())
+                // .then()
                 } else {
                     return alert("No more tickets!")
                 }
