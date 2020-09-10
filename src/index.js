@@ -8,6 +8,7 @@ function getMovies() {
 
 function renderMovie(movie) {
     const poster = document.querySelector('#poster')
+    const posterContainer = document.querySelector('.four wide column')
     const filmItem = document.querySelector('.film item')
     const listContainer = document.querySelector('.list-container')
     const divList = document.querySelector('.ui divided list')
@@ -16,8 +17,25 @@ function renderMovie(movie) {
     const runtime = document.querySelector('#runtime')
     const showtime = document.querySelector('#showtime')
 
+    title.dataset.title = movie.title
+    title.innerHTML = movie.title
+
+    runtime.dataset.runtime = movie.runtime
+    runtime.innerHTML = `${movie.runtime} minutes` 
+
+    showtime.dataset.showtime = movie.showtime
+    showtime.innerHTML = movie.showtime
+
+    poster.dataset.poster = movie.poster
+    poster.innerHTML = `
+    <img id="poster" src="assets/placeholderImage.png" data-poster= ${movie.poster}>
+    `
     
-    debugger
+
+
+    posterContainer.appendChild(poster)
+    title.append(card)
+    // debugger
 }
 
 getMovies()
