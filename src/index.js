@@ -1,6 +1,8 @@
 const url = "http://localhost:3000/films"
 
-function getMovies() {
+const button = document.getElementsByClassName('ui orange button')
+
+function getMovies(){
     fetch(url)
     .then(response => response.json())
     .then(movies => movies.forEach(movie => renderMovie(movie)))   
@@ -8,7 +10,7 @@ function getMovies() {
 
 function renderMovie(movie) {
     const poster = document.querySelector('#poster')
-    const posterContainer = document.querySelector('.four wide column')
+    const posterContainer = document.getElementsByClassName('.four wide column')
     const filmItem = document.querySelector('.film item')
     const listContainer = document.querySelector('.list-container')
     const divList = document.querySelector('.ui divided list')
@@ -42,11 +44,14 @@ function renderMovie(movie) {
 
     posterContainer.appendChild(poster)
     title.append(card)
-    // debugger
 }
 
-const buyButton = () => {
-    
+const clickHandler = () => {
+    button.addEventListener('click' , e => {
+        if (e.target.matches(button))
+        console.log('TEST')
+        debugger
+    })
 }
 
 
