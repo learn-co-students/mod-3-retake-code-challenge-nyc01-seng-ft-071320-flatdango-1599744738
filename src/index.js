@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   fetchFilms();
   clickHandler();
+  fetchMoreFilms();
 });
 
 let ticketsSold = 0;
@@ -18,7 +19,7 @@ const fetchFilms = () => {
 const renderFilm = (film) => {
   ticketsSold = film.tickets_sold;
   const remainingTickets = film.capacity - film.tickets_sold;
-  let buyTicketButton = "";
+  let buyTicketButton = "Sold Out!";
   if (remainingTickets > 0) {
     buyTicketButton = `<div class="ui orange button">Buy Ticket</div>`;
   }
@@ -67,4 +68,21 @@ const renderClick = (filmData) => {
   fetch("http://localhost:3000/films/1", configObj)
     .then((response) => response.json())
     .then((film) => renderFilm(film));
+};
+
+const fetchMoreFilms = () => {
+  fetch("http://localhost:3000/films/")
+    .then((response) => response.json())
+    .then((films) => renderFilms(films));
+};
+renderFilms = (films) => {
+  for (const flick of films) {
+    renderFlick(flick);
+  }
+};
+
+renderFlick = (flick) => {
+  const filmItemDiv = ".film.item";
+
+  filmItemDiv.innerText = flick.title;
 };
