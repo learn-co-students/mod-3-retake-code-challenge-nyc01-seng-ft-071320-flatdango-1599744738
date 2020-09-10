@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         filmTicketNum.innerText = filmObj.capacity
         filmCount.dataset.num = filmObj.id
         filmTicketNum.dataset.num = filmObj.id
+        filmTicketNum.dataset.tickets = filmObj.tickets_sold
         // showCard.append(filmCard)
     }
 
@@ -56,13 +57,45 @@ document.addEventListener("DOMContentLoaded", () => {
 // subtract from total
 // user click event listener
 
-    document.addEventListener("click", (e) => {
-    if (e.target.matches(".ui.orange.button"))
-        console.log(e.target)
-        const button = e.target
-        // get data id from button
-        let filmLikes = parseInt(e.target.getAttribute())
-    })
+    function clickHandler () {
+        document.addEventListener("click", (e) => {
+        if (e.target.matches(".ui.orange.button"))
+            console.log(e.target)
+            // get data id from button
+            let dataId = parseInt(e.target.getAttribute("data-num"))
+            let ticketData = parseInt(e.target.getAttribute("data-tickets"))
+
+            const dataObject = {
+                ticket_count: ticketData - 1,
+            }
+
+            putFilm(dataId, dataObject)
+        })
+    }
+
+    const putFilm = (dataId, dataObject) => {
+        const options = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify(dataObject),
+        }
+
+        fetch(baseUrl + dataId, options)
+        .then((response) => response.json())
+        .then((data) => {
+            const dataId = data.id
+            const tickets = data.ticket_count
+
+            qs()
+
+        })
+
+
+
+    }
 
     function renderFilm(filmObj){
         // create element here
@@ -82,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 getFilms()
+clickHandler()
 });
 
 
