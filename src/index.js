@@ -10,7 +10,8 @@ function getMovies(){
 
 function renderMovie(movie) {
     const poster = document.querySelector('#poster')
-    const posterContainer = document.getElementsByClassName('.four wide column')
+    const posterContainer = document.getElementsByClassName('.four.wide.column')
+    console.dir(posterContainer)
     const filmItem = document.querySelector('.film item')
     const listContainer = document.querySelector('.list-container')
     const divList = document.querySelector('.ui divided list')
