@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const baseUrl = "http://localhost:3000/films/"
+    let movieId = null
 
     const getMovies = () => {
         fetch(baseUrl)
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderMovie = (movie) => {
         const movieCard = document.querySelector('.card')
         movieCard.dataset.id = movie.id
-        console.log(movieCard)
+        
         const movieCapacity = parseInt(movie.capacity)
         const movieTicketsSold = movie.tickets_sold
         const availableTickets = movieCapacity - movieTicketsSold
@@ -45,10 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const clickHandler = () => {
         document.addEventListener('click', e => {
+            const movieCard = document.querySelector('.card')
             if(e.target.matches('.orange')){
               const ticketNum = document.querySelector('#ticket-num').textContent
-              
-              const remainingTickets = parseInt(ticketNum) - 1
+              const remainingTickets = parseInt(ticketNum)
+              remainingTickets - 1 
+
+              const id = movieCard.dataset.id
             
             const options = {
                 method: 'PATCH',
@@ -58,6 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify({availableTickets: remainingTickets})
                 }
+
+                fetch(baseUrl + id, options) 
+                .then(response => response.json())
+                .then(data => renderMovie(data))
+                
             }
         })
     }
