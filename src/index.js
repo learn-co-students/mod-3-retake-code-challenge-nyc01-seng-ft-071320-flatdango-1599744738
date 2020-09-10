@@ -13,6 +13,7 @@
       const clickHandler = () => {
         ticketButton.addEventListener('click', e => {
           if (remainingTickets.textContent > 0) {
+            console.log(e.target)
             //Patch request
             const config = {
               method: 'PATCH',
@@ -28,8 +29,9 @@
             fetch(url, config)
               .then(response => response.json())
               .then(movie => renderMovie(movie))
-          }else {
-            
+          } else {
+            ticketButton.textContent = 'sold out!'
+            ticketButton.disabled = true
           }
 
         })
@@ -78,10 +80,10 @@
     - Buy a ticket for a movie. The number of tickets sold for that movie should be persisted, and I should be able to see the number of available tickets decreasing on the frontend.
       - decrement tickets on click√
         *create click handler√
-        *render new ticket amount on click
-      - make a patch request
+        *render new ticket amount on click√
+      - make a patch request√
     - I should not be able to buy a ticket if the showing is sold out.
-      - the textContent of the button should change
-      - button should be disabled when remaining ticket number hits 0
+      - the textContent of the button should change√
+      - button should be disabled when remaining ticket number hits 0√
 
     */
