@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 fetch(baseUrl + id, options) 
                 .then(response => response.json())
-                .then(data => renderMovie(data))
+                .then(data => document.querySelector('#ticket-num').textContent = parseInt(data))
                 
             }
         })
