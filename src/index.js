@@ -27,9 +27,11 @@
 
             fetch(url, config)
               .then(response => response.json())
-              .then(obj => console.log(obj))
-
+              .then(movie => renderMovie(movie))
+          }else {
+            
           }
+
         })
       }
 
