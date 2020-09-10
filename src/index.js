@@ -28,27 +28,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
      
         const button = document.querySelector("#button-container")
         const targetButton = document.querySelector("#button-container").children[0]
-     
+        
         button.addEventListener('click', (event) => {
             
             event.preventDefault();
-
-         if (event.target === targetButton) {
-            fetch(url)
-            .then(response =>response.json())
-            .then(movie => {
-
-           let ticketSold = 0
-            const ticketNum = parseInt(movieTickets.innerText)  
-            movieTickets.innerText = ticketNum - 1
-           ticketSold = movie.tickets_sold + 1
             
-           if (ticketNum < 1) {
-                console.log("Sorry Sold out !")
-            }
-            if (ticketNum > 0 ) {
-            updateTickets(ticketSold)
-          }
+            if (event.target === targetButton) {
+                fetch(url)
+                .then(response =>response.json())
+                .then(movie => {
+                    
+                    let ticketSold = 0
+                    const ticketNum = parseInt(movieTickets.innerText)  
+                    movieTickets.innerText = ticketNum - 1
+                    ticketSold = movie.tickets_sold + 1
+                    // debugger
+
+                    if (movie.tickets_sold < movie.capacity) {
+                    updateTickets(ticketSold)
+                    } else {console.log("sorry, sold out ")}
         })
        }
      })
@@ -69,7 +67,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         fetch(url, options)
         .then(response => response.json())
         .then(ticketData => {
-            movieTickets.innerText = ticketData.tickets_sold
+                
+                // movieTickets.innerText = ticketData.tickets_sold
+            
         })
     }
 
