@@ -5,9 +5,9 @@ const runTime = document.querySelector("#runtime")
 const movieTitle = document.querySelector("#title")
 const movieDescription = document.querySelector("#film-info")
 const showTime = document.querySelector("#showtime")
-const ticketsLeft = document.querySelector("#ticket-num")
+const ticketsContainer = document.querySelector("#ticket-num")
 const buyButton = document.querySelector(".ui-orange-button")
-let capacity = 100
+
 console.log(buyButton)
 
 // fetch FIRST movie with it's id
@@ -16,6 +16,7 @@ console.log(buyButton)
 function getMovie(url){
     fetch(url).then(resp => resp.json()).then(movie => {
         renderMovie(movie)
+        buyTix(movie)
     }) 
 }
 
@@ -26,18 +27,27 @@ function renderMovie(movie){
     movieTitle.innerText = movie.title
     runTime.innerText = `${movie.runtime} minutes`
     showTime.innerText = `${movie.showtime}`
-    ticketAmount = buyTix(movie)
+    movieDescription.innerText = movie.description
 }
 
-// get tickets to do math with theatre capacity and tix sold
+// get tickets to do math with theatre movie.capacity and tix sold
 function buyTix(movie){
-    let tickets = ticketsLeft.innerText = parseInt(`${capacity}` - `${movie.tickets_sold}`)
-    tickets
+    let ticketsLeft = parseInt(`${movie.capacity}` - `${movie.tickets_sold}`)
+    ticketsContainer.innerText = ticketsLeft
+
+
     buyButton.addEventListener('click', e => {
-      let remainingTix = ticketsLeft.innerText = tickets--
-        persistTix(movie, remainingTix)
+      let remainingTix = ticketsContainer.innerText = ticketsLeft--
+      ticketsContainer.className = movie.id
+        persistTix(movie,remainingTix)
+        if(remainingTix === 0){
+            stopPropagation()
+            ticketsContainer.innerText = "Sold Out"
+        }
     })
 }
+
+
 
 function persistTix(movie, remainingTix){
     fetch(url + movie.id, {
@@ -48,7 +58,7 @@ function persistTix(movie, remainingTix){
         },
         body:JSON.stringify({
             tickets_sold: remainingTix})
-        })
+        }).then(resp=> resp.json()).then(data => console.log(data))
 }
 
    
