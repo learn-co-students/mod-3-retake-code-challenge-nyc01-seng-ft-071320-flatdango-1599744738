@@ -44,8 +44,7 @@ function renderFrontMovie(data){
     document.querySelector('.card').dataset.sold=data.tickets_sold
 }
 
-
-//#### PATCH request to buy ticket
+//#### DOM update to buy ticket
 function lowerTicketDOM(btn){
     let card = btn.closest('.card')
     let availableTickets = card.dataset.remaining
@@ -54,22 +53,18 @@ function lowerTicketDOM(btn){
     document.querySelector('#ticket-num').innerText=(
         parseInt(availableTickets, 10) - 1)
     lowerTicketDb(btn)
-    } else {window.alert(`I'm sorry, there are no more tickets!`)}
-        
+    } else {window.alert(`I'm sorry, there are no more tickets!`)}    
     }// 
     
-
+//######## PATCH request to buy movie
     function lowerTicketDb(btn){
         let card = btn.closest('.card')
         let id = card.dataset.id 
-        console.log(id)
         let sold = parseInt(card.dataset.sold, 10)
         let update = (sold + 1)
-        console.log(update)
 
-        let data = {tickets_sold: update}
-        console.log(data)
-
+        // let data = {tickets_sold: update}
+ 
         let options = {
             method: 'PATCH',
             headers: {
@@ -86,7 +81,7 @@ function lowerTicketDOM(btn){
             .then(function(response){
                 console.log(response)
                 loadFrontMovie()
-            })
+            })   
+    }
 
-       
-}
+    //###### EXTRA DELIVERABLES 
