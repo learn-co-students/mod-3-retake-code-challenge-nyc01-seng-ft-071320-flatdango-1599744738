@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         filmCount.dataset.num = filmObj.id
         filmTicketNum.dataset.num = filmObj.id
         filmTicketNum.dataset.tickets = filmObj.tickets_sold
+        filmTicketNum.dataset.capacity = filmObj.capacity
         // showCard.append(filmCard)
     }
 
@@ -61,12 +62,15 @@ document.addEventListener("DOMContentLoaded", () => {
         document.addEventListener("click", (e) => {
         if (e.target.matches(".ui.orange.button"))
             console.log(e.target)
+            const ticketNum = qs("#ticket-num")
             // get data id from button
-            let dataId = parseInt(e.target.getAttribute("data-num"))
-            let ticketData = parseInt(e.target.getAttribute("data-tickets"))
+            let dataId = parseInt(ticketNum.getAttribute("data-num"))
+            let ticketData = parseInt(ticketNum.getAttribute("data-tickets"))
+            let capacityData = parseInt(ticketNum.getAttribute("data-capacity"))
 
             const dataObject = {
-                ticket_count: ticketData - 1,
+                capacity: capacityData - 1,
+                tickets_sold: ticketData + 1,
             }
 
             putFilm(dataId, dataObject)
@@ -87,12 +91,19 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((response) => response.json())
         .then((data) => {
             const dataId = data.id
-            const tickets = data.ticket_count
+            const capacity = data.capacity
+            const tickets = data.tickets_sold
 
-            qs()
+            // query select the data id and associated ticket count/capacity
+            let filmTickets = qs("#ticket-num")
 
+            filmTickets.setAttribute("data-num", dataId)
+            filmTickets.setAttribute("data-capacity", capacity)
+            filmTickets.setAttribute("data-tickets", tickets)
+
+            // on page refresh, remaining tickets go down, capacity goes down
+            filmTickets.textContent = capacity
         })
-
 
 
     }
