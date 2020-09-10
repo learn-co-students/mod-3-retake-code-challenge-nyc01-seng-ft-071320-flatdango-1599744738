@@ -28,6 +28,7 @@ const getFilm = (films) =>{
 }
 
 const renderFilm = (film) => {
+    
     const moviePoster = document.getElementById('poster')
     const movieId = document.getElementById('title')
     const movieRuntime = document.getElementById('runtime')
@@ -35,6 +36,8 @@ const renderFilm = (film) => {
     const movieShowtime = document.getElementById('showtime')
     const movieTicketNum = document.getElementById('ticket-num')
     
+    const currMovie = document.get film.id
+
     movieId.innerText = film.title
     moviePoster.src = film.poster
     movieRuntime.innerText = film.runtime 
@@ -47,10 +50,12 @@ const renderFilm = (film) => {
         document.addEventListener('click', e => {
         // console.dir(e.target)
             if (e.target.className === "ui orange button"){
-                getFilms()              
-            const remTickets = document.getElementById('ticket-num')
-
-
+           
+        const updateTicket = (id, container) => {              
+            const container = document.getElementById('ticket-num')
+                
+        }
+            
 
 
             }
