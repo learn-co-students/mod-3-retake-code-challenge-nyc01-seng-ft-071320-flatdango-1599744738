@@ -35,11 +35,24 @@ function buyTix(movie){
     tickets
     buyButton.addEventListener('click', e => {
       let remainingTix = ticketsLeft.innerText = tickets--
+        persistTix(movie, remainingTix)
     })
-
-    fetch()
-   
 }
+
+function persistTix(movie, remainingTix){
+    fetch(url + movie.id, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Accepts": "application/json"
+        },
+        body:JSON.stringify({
+            tickets_sold: remainingTix})
+        })
+}
+
+   
+
 
 
 getMovie(url + 1)
